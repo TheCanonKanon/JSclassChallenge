@@ -70,7 +70,7 @@ const addProduct = (name,price,quantity) => {
     const prodRow = document.createElement("tr");
     table.appendChild(prodRow);
 
-    // creating Name Price and Quantity Cells of the Product and giving them a ?unique? ID
+    // creating Name Price and Quantity Cells of the Product and giving them a unique ID
     const prodName = document.createElement("td");
     prodRow.appendChild(prodName);
     prodName.innerHTML = name;
@@ -91,6 +91,8 @@ const addProduct = (name,price,quantity) => {
     ProductsInShop.push(product);
   }
 }
+
+
 
 //Test Products
 addProduct("apple",5.99,4);
