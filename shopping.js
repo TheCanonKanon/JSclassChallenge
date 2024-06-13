@@ -92,7 +92,12 @@ const addProduct = (name,price,quantity) => {
   }
 }
 
+//Interface to add new Products or modify existing ones
+const addedProductSelectorUpdate = () => {
+  const shoppinginterface = document.querySelector("#shop-interface")
+  const newOption = document.createElement("option");
 
+}
 
 //Test Products
 addProduct("apple",5.99,4);
