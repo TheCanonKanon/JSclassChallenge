@@ -13,14 +13,14 @@
 // 8.   Add as many features as you want
 
 class Product {
-  constructor(name, price, quantity) {
+  constructor(name, price, quantity, discount) {
     this.name = name;
     this.price = price;
     this.quantity = quantity;
-    this.discount = 0;
+    this.discount = false;
   }
 
-  setDiscount (discount) {
+  setDiscount (DiscountState) {
     this.discount = discount
   }
 
@@ -62,7 +62,7 @@ let basket = new Basket();
 let ProductsInShop = [];
 
 //Add Products to the Shop in a table
-const addProduct = (name,price,quantity) => {
+const addProduct = (name,price,quantity,discount) => {
   
   //Stops the addProduct if the Product already exists
   breakProduct: {
@@ -92,6 +92,11 @@ const addProduct = (name,price,quantity) => {
     prodRow.appendChild(prodQuantity);
     prodQuantity.innerHTML = quantity;
     prodQuantity.id = name + "-quanitity"
+
+    const prodDiscount = document.createElement("td");
+    prodRow.appendChild(prodDiscount);
+    prodDiscount.innerHTML = discount;
+    prodDiscount.id = name + "-discount"
 
     //creates the Productobject
     const product = new Product(name,price,quantity);
@@ -128,16 +133,19 @@ const updateTextFieldsShopInterface = () => {
   const nameText = document.querySelector("#product-name-text");
   const priceText = document.querySelector("#product-price-text");
   const quantityText = document.querySelector("#product-quantitiy-text");
-  console.log(selector.value)
+  const discountCheckbox = document.querySelector("#product-discount-checkbox");
   for (let x of ProductsInShop) {
     if (selector.value === "empty"){
       nameText.value = "";
       priceText.value = "";
-      quantityText.value = "";     
+      quantityText.value = "";
+      discountCheckbox.value = "";
+      break;   
     } else if (x.name === selector.value){
       nameText.value = x.name;
       priceText.value = x.price;
       quantityText.value = x.quantity;
+      discountCheckbox.value = x.discount;
       break;
     }
   }
@@ -146,9 +154,11 @@ const updateTextFieldsShopInterface = () => {
 const addEvents = () => {
   const selectorChange = document.querySelector("#shop-select-interface");
   selectorChange.addEventListener("change", () => updateTextFieldsShopInterface());
+  /*const shopInterfaceNameChange = document.querySelector("#product-name-text")
+  shopInterfaceNameChange.addEventListener("change", () => )*/
 }
 
 //Test Products
-addProduct("apple",5.99,4);
-addProduct("birne",30,1);
+addProduct("apple",5.99,4,false);
+addProduct("birne",30,1,true);
 console.log(ProductsInShop);
