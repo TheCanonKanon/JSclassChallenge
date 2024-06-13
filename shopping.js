@@ -48,11 +48,18 @@ class Basket {
   }
 }
 
-//Array holding all Products added to the Shop
-let ProductsInShop = [];
+window.onload = () => {
+  addEvents();
+}
 
 let basket = new Basket();
 
+/*------------------------------------------------------*/
+/*Product Table and Function to add new Products*/
+/*------------------------------------------------------*/
+
+//Array holding all Products added to the Shop
+let ProductsInShop = [];
 
 //Add Products to the Shop in a table
 const addProduct = (name,price,quantity) => {
@@ -89,14 +96,56 @@ const addProduct = (name,price,quantity) => {
     //creates the Productobject
     const product = new Product(name,price,quantity);
     ProductsInShop.push(product);
+
+    //append Productname to Selector in Productinterface
+    addedProductSelectorUpdate(name);
   }
 }
 
-//Interface to add new Products or modify existing ones
-const addedProductSelectorUpdate = () => {
-  const shoppinginterface = document.querySelector("#shop-interface")
-  const newOption = document.createElement("option");
+/*------------------------------------------------------*/
+/*Interface to add new Products or modify existing ones*/
+/*------------------------------------------------------*/
 
+//Update new Product to Selector
+const addedProductSelectorUpdate = (name) => {
+  const shoppinginterface = document.querySelector("#shop-select-interface");
+  const newOption = document.createElement("option");
+  shoppinginterface.appendChild(newOption);
+  newOption.innerHTML = name;
+  newOption.id = name + "-option";
+}
+
+//Update modification to Selector
+const modifiedProductSelectorUpdate = (oldName, newName) => {
+  const selectOption = document.querySelector("#" + oldName + "-option");
+  selectOption.innerHTML = newName;
+  selectOption.id = newName + "-option";
+}
+
+//Updates the Text Fields to Selector Option
+const updateTextFieldsShopInterface = () => {
+  const selector = document.querySelector("#shop-select-interface");
+  const nameText = document.querySelector("#product-name-text");
+  const priceText = document.querySelector("#product-price-text");
+  const quantityText = document.querySelector("#product-quantitiy-text");
+  console.log(selector.value)
+  for (let x of ProductsInShop) {
+    if (selector.value === "empty"){
+      nameText.value = "";
+      priceText.value = "";
+      quantityText.value = "";     
+    } else if (x.name === selector.value){
+      nameText.value = x.name;
+      priceText.value = x.price;
+      quantityText.value = x.quantity;
+      break;
+    }
+  }
+}
+
+const addEvents = () => {
+  const selectorChange = document.querySelector("#shop-select-interface");
+  selectorChange.addEventListener("change", () => updateTextFieldsShopInterface());
 }
 
 //Test Products
