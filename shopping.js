@@ -55,33 +55,42 @@ let basket = new Basket();
 
 
 //Add Products to the Shop in a table
-//needs check if product exists already
 const addProduct = (name,price,quantity) => {
-  const table = document.querySelector("#ShoppingCenter");
-  const prodRow = document.createElement("tr");
-  table.appendChild(prodRow);
+  
+  //Stops the addProduct if the Product already exists
+  breakProduct: {
+    for (let x of ProductsInShop) {
+      if (x.name === name) {
+        console.log("Product exists already");
+        break breakProduct;
+      }
+    }
 
-  // creating Name Price and Quantity Cells of the Product and giving them a ?unique? ID
-  const prodName = document.createElement("th");
-  prodRow.appendChild(prodName);
-  prodName.innerHTML = name;
-  prodName.id = name + "-name"
+    const table = document.querySelector("#ShoppingCenter");
+    const prodRow = document.createElement("tr");
+    table.appendChild(prodRow);
 
-  const prodPrice = document.createElement("th");
-  prodRow.appendChild(prodPrice);
-  prodPrice.innerHTML = price;
-  prodPrice.id = name + "-price"
+    // creating Name Price and Quantity Cells of the Product and giving them a ?unique? ID
+    const prodName = document.createElement("td");
+    prodRow.appendChild(prodName);
+    prodName.innerHTML = name;
+    prodName.id = name + "-name"
 
-  const prodQuantity = document.createElement("th");
-  prodRow.appendChild(prodQuantity);
-  prodQuantity.innerHTML = quantity;
-  prodQuantity.id = name + "-quanitity"
+    const prodPrice = document.createElement("td");
+    prodRow.appendChild(prodPrice);
+    prodPrice.innerHTML = price;
+    prodPrice.id = name + "-price"
 
-  //creates the Productobject
-  const product = new Product(name,price,quantity);
-  ProductsInShop.push(product);
+    const prodQuantity = document.createElement("td");
+    prodRow.appendChild(prodQuantity);
+    prodQuantity.innerHTML = quantity;
+    prodQuantity.id = name + "-quanitity"
+
+    //creates the Productobject
+    const product = new Product(name,price,quantity);
+    ProductsInShop.push(product);
+  }
 }
-
 
 //Test Products
 addProduct("apple",5.99,4);
