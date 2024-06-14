@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="shopping.css">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,9 +9,33 @@
   </head>
   <body>
     <h1>Kanons Shopping Paloza</h1>
-    <table id="ShoppingCenter">
-
-    </table>
+    <div class="gridCell">
+      <div>
+        <table id="ShoppingCenter">
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Discounted</th>
+            <th>Buy</th>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <select name="shop-select-interface" id="shop-select-interface">
+          <option value="empty">New Product</option>
+        </select>
+        <label for="product-name-text">Product Name:</label>
+        <input type="text" id="product-name-text" name="product-name-text">
+        <label for="product-price-text">Price:</label>
+        <input type="text" id="product-price-text" name="product-price-text">
+        <label for="product-quantity-text">Quantity:</label>
+        <input type="text" id="product-quantity-text" name="product-quantity-text">
+        <label for="product-discount-checkbox">Discounted:</label>
+        <input type="checkbox" id="product-discount-checkbox" name="product-discount-checkbox">
+        <button id="product-delete-button">Delete Product</button>
+      </div>
+    </div>
     <script src="shopping.js"></script>
   </body>
 </html>
