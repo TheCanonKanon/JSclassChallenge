@@ -240,6 +240,30 @@ const writeProductArrayDiscount = (productDiscount) => {
   }
 }
 
+//Deletes the Selected Product
+const deleteProductArray = () => {
+  const selector = document.querySelector("#shop-select-interface");
+  if (selector.value === "empty") {
+    console.log("Select Product to delete");
+  } else {
+    //Delete Array
+    ProductsInShop.splice(selector.selectedIndex-1,1);
+    console.log(ProductsInShop)
+    //Delete TableEntry
+    const prodNameHead = document.querySelector("#" + selector.value + "-name");
+    prodNameHead.remove();
+    const prodPriceHead = document.querySelector("#" + selector.value + "-price");
+    prodPriceHead.remove();
+    const prodQuantityHead = document.querySelector("#" + selector.value + "-quantity");
+    prodQuantityHead.remove();
+    const prodDiscountHead = document.querySelector("#" + selector.value + "-discount");
+    prodDiscountHead.remove();
+    //Delete Selector Option
+    const selectorOption = document.querySelector("#" + selector.value +"-option")
+    selectorOption.remove();
+  }
+}
+
 const addEvents = () => {
   const selectorChange = document.querySelector("#shop-select-interface");
   selectorChange.addEventListener("change", () => updateTextFieldsShopInterface());
@@ -251,6 +275,8 @@ const addEvents = () => {
   shopInterfaceQuantityChange.addEventListener("change", () => writeProductArrayQuantity(shopInterfaceQuantityChange.value));
   const shopInterfaceDiscountChange = document.querySelector("#product-discount-checkbox");
   shopInterfaceDiscountChange.addEventListener("change", () => writeProductArrayDiscount(shopInterfaceDiscountChange.checked));
+  const shopInterfaceDelete = document.querySelector("#product-delete-button");
+  shopInterfaceDelete.addEventListener("click", () => deleteProductArray());
 }
 
 //Test Products
