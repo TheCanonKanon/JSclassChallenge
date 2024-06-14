@@ -17,7 +17,7 @@ class Product {
     this.name = name;
     this.price = price;
     this.quantity = quantity;
-    this.discount = false;
+    this.discount = discount;
   }
 
   setDiscount (DiscountState) {
@@ -91,7 +91,7 @@ const addProduct = (name,price,quantity,discount) => {
     const prodQuantity = document.createElement("td");
     prodRow.appendChild(prodQuantity);
     prodQuantity.innerHTML = quantity;
-    prodQuantity.id = name + "-quanitity"
+    prodQuantity.id = name + "-quantity"
 
     const prodDiscount = document.createElement("td");
     prodRow.appendChild(prodDiscount);
@@ -132,7 +132,7 @@ const updateTextFieldsShopInterface = () => {
   const selector = document.querySelector("#shop-select-interface");
   const nameText = document.querySelector("#product-name-text");
   const priceText = document.querySelector("#product-price-text");
-  const quantityText = document.querySelector("#product-quantitiy-text");
+  const quantityText = document.querySelector("#product-quantity-text");
   const discountCheckbox = document.querySelector("#product-discount-checkbox");
   for (let x of ProductsInShop) {
     if (selector.value === "empty"){
@@ -151,11 +151,106 @@ const updateTextFieldsShopInterface = () => {
   }
 }
 
+//called Event that if name is changed in Shop-Interface will create new Item or change name of existing one
+const writeProductArrayName = (productName) => {
+  const selector = document.querySelector("#shop-select-interface");
+  const shopInterfaceName = document.querySelector("#product-name-text");
+  const shopInterfacePrice = document.querySelector("#product-price-text");
+  const shopInterfaceQuantity = document.querySelector("#product-quantity-text");
+  const shopInterfaceDiscount = document.querySelector("#product-discount-checkbox");
+  if (selector.value === "empty") {
+    if (shopInterfaceName.value && shopInterfacePrice.value && shopInterfaceQuantity.value){
+      addProduct(shopInterfaceName.value, shopInterfacePrice.value, shopInterfaceQuantity.value, shopInterfaceDiscount.checked);
+      console.log(selector.length)
+      selector.selectedIndex = selector.length-1;
+    }
+  } else {
+    //find and change all html table
+    const prodNameHead = document.querySelector("#" + selector.value + "-name");
+    prodNameHead.innerHTML = productName;
+    prodNameHead.id = productName + "-name";
+    const prodPriceHead = document.querySelector("#" + selector.value + "-price");
+    prodPriceHead.id = productName + "-price";
+    const prodQuantityHead = document.querySelector("#" + selector.value + "-quantity");
+    prodQuantityHead.id = productName + "-quantity";
+    const prodDiscountHead = document.querySelector("#" + selector.value + "-discount");
+    prodDiscountHead.id = productName + "-discount";
+    //find and change the array entry
+    ProductsInShop[selector.selectedIndex-1].name = productName;
+    //find and change the selector entry
+    selector[selector.selectedIndex].id = productName + "-option"
+    selector[selector.selectedIndex].innerHTML = productName;
+  }
+}
+
+//called Event that if price is changed in Shop-Interface will create new Item or change price of existing one
+const writeProductArrayPrice = (productPrice) => {
+  const selector = document.querySelector("#shop-select-interface");
+  const shopInterfaceName = document.querySelector("#product-name-text");
+  const shopInterfacePrice = document.querySelector("#product-price-text");
+  const shopInterfaceQuantity = document.querySelector("#product-quantity-text");
+  const shopInterfaceDiscount = document.querySelector("#product-discount-checkbox");
+  if (selector.value === "empty") {
+    if (shopInterfaceName.value && shopInterfacePrice.value && shopInterfaceQuantity.value){
+      addProduct(shopInterfaceName.value, shopInterfacePrice.value, shopInterfaceQuantity.value, shopInterfaceDiscount.checked);
+      selector.selectedIndex = selector.length-1;
+    }
+  } else {
+    const prodPriceHead = document.querySelector("#" + selector.value + "-price");
+    prodPriceHead.innerHTML = productPrice;
+    ProductsInShop[selector.selectedIndex-1].price = productPrice;
+  }
+}
+
+//called Event that if quantity is changed in Shop-Interface will create new Item or change quantity of existing one
+const writeProductArrayQuantity = (productQuantity) => {
+  const selector = document.querySelector("#shop-select-interface");
+  const shopInterfaceName = document.querySelector("#product-name-text");
+  const shopInterfacePrice = document.querySelector("#product-price-text");
+  const shopInterfaceQuantity = document.querySelector("#product-quantity-text");
+  const shopInterfaceDiscount = document.querySelector("#product-discount-checkbox");
+  if (selector.value === "empty") {
+    if (shopInterfaceName.value && shopInterfacePrice.value && shopInterfaceQuantity.value){
+      addProduct(shopInterfaceName.value, shopInterfacePrice.value, shopInterfaceQuantity.value, shopInterfaceDiscount.checked);
+      selector.selectedIndex = selector.length-1;
+    }
+  } else {
+    const prodQuantityHead = document.querySelector("#" + selector.value + "-quantity");
+    prodQuantityHead.innerHTML = productQuantity;
+    ProductsInShop[selector.selectedIndex-1].quantity = productQuantity;
+  }
+}
+
+//called Event that if price is changed in Shop-Interface will create new Item or change name of existing one
+const writeProductArrayDiscount = (productDiscount) => {
+  const selector = document.querySelector("#shop-select-interface");
+  const shopInterfaceName = document.querySelector("#product-name-text");
+  const shopInterfacePrice = document.querySelector("#product-price-text");
+  const shopInterfaceQuantity = document.querySelector("#product-quantity-text");
+  const shopInterfaceDiscount = document.querySelector("#product-discount-checkbox");
+  if (selector.value === "empty") {
+    if (shopInterfaceName.value && shopInterfacePrice.value && shopInterfaceQuantity.value){
+      addProduct(shopInterfaceName.value, shopInterfacePrice.value, shopInterfaceQuantity.value, shopInterfaceDiscount.checked);
+      selector.selectedIndex = selector.length-1;
+    }
+  } else {
+    const prodDiscountHead = document.querySelector("#" + selector.value + "-discount");
+    prodDiscountHead.innerHTML = productDiscount;
+    ProductsInShop[selector.selectedIndex-1].discount = productDiscount;
+  }
+}
+
 const addEvents = () => {
   const selectorChange = document.querySelector("#shop-select-interface");
   selectorChange.addEventListener("change", () => updateTextFieldsShopInterface());
-  /*const shopInterfaceNameChange = document.querySelector("#product-name-text")
-  shopInterfaceNameChange.addEventListener("change", () => )*/
+  const shopInterfaceNameChange = document.querySelector("#product-name-text");
+  shopInterfaceNameChange.addEventListener("change", () => writeProductArrayName(shopInterfaceNameChange.value));
+  const shopInterfacePriceChange = document.querySelector("#product-price-text");
+  shopInterfacePriceChange.addEventListener("change", () => writeProductArrayPrice(shopInterfacePriceChange.value));
+  const shopInterfaceQuantityChange = document.querySelector("#product-quantity-text");
+  shopInterfaceQuantityChange.addEventListener("change", () => writeProductArrayQuantity(shopInterfaceQuantityChange.value));
+  const shopInterfaceDiscountChange = document.querySelector("#product-discount-checkbox");
+  shopInterfaceDiscountChange.addEventListener("change", () => writeProductArrayDiscount(shopInterfaceDiscountChange.checked));
 }
 
 //Test Products
