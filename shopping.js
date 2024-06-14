@@ -20,8 +20,8 @@ class Product {
     this.discount = discount;
   }
 
-  setDiscount (DiscountState) {
-    this.discount = discount
+  setDiscount (discountState) {
+    this.discount = discountState;
   }
 
   addQuantity (amount) {
@@ -43,16 +43,29 @@ class Product {
 }
 
 class Basket {
-  constructor() {
-    this.products = [];
+  constructor(money) {
+    this.product = [];
+    this.money = money;
+
   }
+
+  addToBasket (amount) {
+    this.quantity += amount;
+  }
+
+  removeFromBasket (amount) {
+    this.quantity -= amount;
+  }
+
+  buyBasket () {
+
+  }
+
 }
 
 window.onload = () => {
   addEvents();
 }
-
-let basket = new Basket();
 
 /*------------------------------------------------------*/
 /*Product Table and Function to add new Products*/
@@ -96,10 +109,20 @@ const addProduct = (name,price,quantity,discount) => {
     const prodDiscount = document.createElement("td");
     prodRow.appendChild(prodDiscount);
     prodDiscount.innerHTML = discount;
-    prodDiscount.id = name + "-discount"
+    prodDiscount.id = name + "-discount";
+
+    const prodButton = document.createElement("td");
+    prodRow.appendChild(prodButton);
+    prodButton.id = name + "-button";
+    const prodBuyButton = document.createElement("button");
+    prodButton.appendChild(prodBuyButton);
+    prodBuyButton.id = name + "-buy-button";
+    prodBuyButton.innerHTML = "Buy " + name;
+    prodBuyButton.value = name;
+    prodBuyButton.addEventListener("click", () => buyProductShop(prodBuyButton.value));
 
     //creates the Productobject
-    const product = new Product(name,price,quantity);
+    const product = new Product(name,price,quantity,discount);
     ProductsInShop.push(product);
 
     //append Productname to Selector in Productinterface
@@ -278,6 +301,22 @@ const addEvents = () => {
   const shopInterfaceDelete = document.querySelector("#product-delete-button");
   shopInterfaceDelete.addEventListener("click", () => deleteProductArray());
 }
+
+/*------------------------------------------------------*/
+/*Function to add Products to Basket with Button Click*/
+/*------------------------------------------------------*/
+
+const buyProductShop = (productName) => {
+  console.log(productName)
+
+}
+
+/*------------------------------------------------------*/
+/*FBasket Stuff*/
+/*------------------------------------------------------*/
+
+
+let basket = new Basket();
 
 //Test Products
 addProduct("apple",5.99,4,false);
