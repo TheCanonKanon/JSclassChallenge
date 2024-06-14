@@ -312,11 +312,11 @@ const buyProductShop = (productName) => {
 }
 
 /*------------------------------------------------------*/
-/*FBasket Stuff*/
+/*Basket Stuff*/
 /*------------------------------------------------------*/
 
+let basket = new Basket(100);
 
-let basket = new Basket();
 
 //Test Products
 addProduct("apple",5.99,4,false);

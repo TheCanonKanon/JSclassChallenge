@@ -5,11 +5,14 @@ table, td, th {
 
 th {
     border-bottom: 3px solid black;
-    width: 30%;
 }
 
 .gridCell {
     display: grid;
     grid-template-columns: 50% 50%;
     width: 100%;
+}
+
+.divShop {
+    grid-row: 1 / 3;
 }
